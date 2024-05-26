@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.likelion.jangsu.category.api.dto.request.CatUpdateReqDto;
 import org.likelion.jangsu.item.domain.CategoryItem;
 
 import java.util.ArrayList;
@@ -21,22 +20,29 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private Long categoryId;
+    private Long id;
 
     @Enumerated(value = EnumType.STRING)
-    private CatType name;
+    private CategoryType name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    @JsonIgnore
+    private Category parent;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "categoryId",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CategoryItem> parentId = new ArrayList<>();
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
     @Builder
-    private Category(CatType name) {
+    public Category(Long id, CategoryType name, Category parent) {
         this.name = name;
+        this.parent = parent;
     }
 
-    public void catUpdate(CatUpdateReqDto CatUpdateReqDto) {
-        this.name = CatUpdateReqDto.name();
+    public void catUpdate(CategoryType name, Category parent) {
+        this.name = name;
+        this.parent = parent;
     }
 
 }

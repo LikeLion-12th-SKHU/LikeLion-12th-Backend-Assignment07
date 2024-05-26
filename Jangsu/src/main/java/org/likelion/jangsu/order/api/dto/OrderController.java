@@ -24,7 +24,7 @@ public class OrderController {
         return new ResponseEntity<>("주문 저장!", HttpStatus.CREATED);
     }
     @PostMapping("/{orderId}")
-    public ResponseEntity<String> cancelOrder(@PathVariable("orderId") Long orderId) {
+    public ResponseEntity<String> orderCancel(@PathVariable("orderId") Long orderId) {
         orderService.cancelOrder(orderId);
         return ResponseEntity.ok("주문이 취소되었습니다.");
     }
@@ -36,7 +36,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{orderId}")
-    public ResponseEntity<String> deleteOrder(@PathVariable("orderId") Long orderId) {
+    public ResponseEntity<String> orderDelete(@PathVariable("orderId") Long orderId) {
         orderService.deleteOrder(orderId);
         return ResponseEntity.ok("주문이 삭제되었습니다.");
     }

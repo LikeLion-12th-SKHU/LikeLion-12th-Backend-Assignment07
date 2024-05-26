@@ -23,16 +23,16 @@ public class ItemController {
         return new ResponseEntity<>("아이템 저장!", HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<ItemListResDto> itemFindAll() {
-        ItemListResDto itemListResDto = itemService.itemFindAll();
-        return new ResponseEntity<>(itemListResDto, HttpStatus.OK);
-    }
-
     @GetMapping("/{itemId}")
     public ResponseEntity<ItemInfoResDto> itemFindOne(@PathVariable("itemId") Long itemId) {
         ItemInfoResDto itemInfoResDto = itemService.itemFindOne(itemId);
         return new ResponseEntity<>(itemInfoResDto, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<ItemListResDto> itemFindAll() {
+        ItemListResDto itemListResDto = itemService.itemFindAll();
+        return new ResponseEntity<>(itemListResDto, HttpStatus.OK);
     }
 
     @PatchMapping("/{itemId}")

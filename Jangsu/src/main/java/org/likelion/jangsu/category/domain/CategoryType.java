@@ -1,5 +1,5 @@
 package org.likelion.jangsu.category.domain;
 
-public enum CatType {
+public enum CategoryType {
     FRUIT, VEGETABLE, MUSHROOM
 }
