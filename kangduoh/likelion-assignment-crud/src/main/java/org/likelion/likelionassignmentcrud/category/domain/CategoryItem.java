@@ -13,7 +13,6 @@ import org.likelion.likelionassignmentcrud.item.domain.Item;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CategoryItem {
 
-    @Getter
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -29,5 +28,4 @@ public class CategoryItem {
         this.category = category;
         this.item = item;
     }
-
 }

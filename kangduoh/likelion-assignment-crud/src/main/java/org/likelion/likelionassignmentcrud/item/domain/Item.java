@@ -5,13 +5,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.likelion.likelionassignmentcrud.category.domain.Category;
 import org.likelion.likelionassignmentcrud.category.domain.CategoryItem;
 import org.likelion.likelionassignmentcrud.item.api.dto.request.ItemUpdateReqDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -27,15 +25,17 @@ public class Item {
     private int price;
     private int stockQuantity;
 
+    private String categoryName;
+
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CategoryItem> categories = new ArrayList<>();
 
     @Builder
-    private Item(String name, int price, int stockQuantity, List<CategoryItem> categories) {
+    private Item(String name, int price, int stockQuantity, String categoryName) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
-        this.categories = categories;
+        this.categoryName = categoryName;
     }
 
     public void update(ItemUpdateReqDto itemUpdateReqDto) {
@@ -55,12 +55,5 @@ public class Item {
             throw new IllegalArgumentException("재고가 부족합니다.");
         }
         this.stockQuantity = resStock;
-    }
-
-    public List<String> getCategoryNames() {
-        return categories.stream()
-                .map(CategoryItem::getCategory)
-                .map(Category::getName)
-                .collect(Collectors.toList());
     }
 }

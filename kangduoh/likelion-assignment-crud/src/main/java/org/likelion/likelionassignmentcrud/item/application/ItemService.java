@@ -34,6 +34,7 @@ public class ItemService {
                 .name(itemsaveReqDto.name())
                 .price(itemsaveReqDto.price())
                 .stockQuantity(itemsaveReqDto.stockQuantity())
+                .categoryName(category.getName())
                 .build();
 
         itemRepository.save(item);

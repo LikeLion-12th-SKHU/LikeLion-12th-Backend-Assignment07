@@ -6,7 +6,6 @@ import org.likelion.likelionassignmentcrud.category.api.dto.request.CategoryUpda
 import org.likelion.likelionassignmentcrud.category.api.dto.response.CategoryInfoResDto;
 import org.likelion.likelionassignmentcrud.category.api.dto.response.CategoryListResDto;
 import org.likelion.likelionassignmentcrud.category.domain.Category;
-import org.likelion.likelionassignmentcrud.category.domain.repository.CategoryItemRepository;
 import org.likelion.likelionassignmentcrud.category.domain.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
