@@ -50,4 +50,9 @@ public class CategoryController {
 
         return new ResponseEntity<>("카테고리 삭제!", HttpStatus.OK);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
