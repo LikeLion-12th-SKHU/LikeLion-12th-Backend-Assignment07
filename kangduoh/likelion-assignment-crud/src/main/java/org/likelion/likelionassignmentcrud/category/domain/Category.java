@@ -43,6 +43,6 @@ public class Category {
 
     public void updateCategory(String name, Category parent) {
         this.name = name;
-        this.parent = parent;
+        this.parent = parent != null ? parent : null;
     }
 }

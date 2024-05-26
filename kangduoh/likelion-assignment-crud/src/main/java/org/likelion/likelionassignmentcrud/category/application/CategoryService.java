@@ -6,6 +6,7 @@ import org.likelion.likelionassignmentcrud.category.api.dto.request.CategoryUpda
 import org.likelion.likelionassignmentcrud.category.api.dto.response.CategoryInfoResDto;
 import org.likelion.likelionassignmentcrud.category.api.dto.response.CategoryListResDto;
 import org.likelion.likelionassignmentcrud.category.domain.Category;
+import org.likelion.likelionassignmentcrud.category.domain.repository.CategoryItemRepository;
 import org.likelion.likelionassignmentcrud.category.domain.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class CategoryService {
         Category parent = null;
         if (categorySaveReqDto.parentId() != null) {
             parent = categoryRepository.findById(categorySaveReqDto.parentId())
-                    .orElseThrow(() -> new IllegalArgumentException("상위 카테고리가 없습니다."));
+                    .orElseThrow(() -> new IllegalArgumentException("해당 상위 카테고리가 없습니다."));
         }
 
         Category category = Category.builder()
@@ -54,8 +55,11 @@ public class CategoryService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 없습니다."));
 
-        Category parent = categoryRepository.findById(categoryUpdateReqDto.parentId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 상위 카테고리가 없습니다."));
+        Category parent = null;
+        if (categoryUpdateReqDto.parentId() != null) {
+            parent = categoryRepository.findById(categoryUpdateReqDto.parentId())
+                    .orElseThrow(() -> new IllegalArgumentException("해당 상위 카테고리가 없습니다."));
+        }
 
         category.updateCategory(categoryUpdateReqDto.name(), parent);
     }
