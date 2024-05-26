@@ -76,10 +76,10 @@ public class ItemService {
                     .category(category)
                     .build();
                 categoryItemRepository.save(newCategoryItem); //새로운 관계 생성
-                newCategoryItem.updateCategoryAndItem(category, item);
+                newCategoryItem.updateCategoryAndItem(category);
                 return ItemInfoResDto.from(item); //밑에 안들리게 리턴해버려.
             } //아이템이 변경되어 기존 아이템을 가지고있던 categoryitem들의 itemid도 다 바꿔주는 상황. 같은 애들도 다 업데이트하면 더티체킹해서 같은애 안변하겠지 ㅇㅈ
-            categoryItemRepository.findAllByItem(item).forEach(categoryItem -> categoryItem.updateCategoryAndItem(category,item));
+            categoryItemRepository.findAllByItem(item).forEach(categoryItem -> categoryItem.updateCategoryAndItem(category));
         }
         return ItemInfoResDto.from(item);
     }

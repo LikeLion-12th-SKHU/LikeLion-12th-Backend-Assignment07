@@ -33,7 +33,7 @@ public class CategoryService {
 		return CategoryInfoDto.from(category);
 	}
 
-	public CategoryListDto getAllCategory(){
+	public CategoryListDto getAllCategory() {
 		return CategoryListDto.from(
 			categoryRepository.findAll()
 				.stream()
@@ -42,18 +42,22 @@ public class CategoryService {
 	}
 
 	@Transactional
-	public void updateCategory(Long categoryId, UpdateCategoryRequestDto requestDto){
+	public void updateCategory(Long categoryId, UpdateCategoryRequestDto requestDto) {
 		Category category = categoryRepository.findById(categoryId)
-			.orElseThrow(()->new IllegalArgumentException("id없는듯"));
-		Category parent = categoryRepository.findById(requestDto.parentId())
-			.orElseThrow(()->new IllegalArgumentException("부모카테고리 id없는듯"));
+			.orElseThrow(() -> new IllegalArgumentException("id없는듯"));
+		Category parent = (requestDto.parentId() != null) ?
+			categoryRepository.findById(requestDto.parentId())
+				.orElseThrow(() -> new IllegalArgumentException("부모카테고리 id없는듯")) : null;
 		category.updateCategory(requestDto.name(), parent);
 	}
 
 	@Transactional
-	public void deleteCategory(Long categoryId){
+	public void deleteCategory(Long categoryId) {
 		Category category = categoryRepository.findById(categoryId)
-			.orElseThrow(()->new IllegalArgumentException("찾을 수 없는 카테고리."));
+			.orElseThrow(() -> new IllegalArgumentException("찾을 수 없는 카테고리."));
+		category.getCategoryItems().forEach(
+			categoryItem -> categoryItem.updateCategoryAndItem(null)
+		);
 		categoryRepository.delete(category);
 	}
 }

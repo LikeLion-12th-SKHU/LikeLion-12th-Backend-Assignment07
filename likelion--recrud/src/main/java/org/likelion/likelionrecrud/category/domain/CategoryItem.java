@@ -38,9 +38,9 @@ public class CategoryItem {
 		this.item = item;
 	}
 
-	public void updateCategoryAndItem(Category category,Item item){ //item의 카테고리에 대한 내용들도 수정
+	public void updateCategoryAndItem(Category category){ //item의 카테고리에 대한 내용들도 수정
 		this.category = category;
-		item.updateCategoryInformation(category);
+		this.item.updateCategoryInformation(category);
 	}
 	// public void updateCategory(Category category){
 	// 	this.category = category;

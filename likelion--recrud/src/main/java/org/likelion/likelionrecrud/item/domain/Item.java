@@ -63,8 +63,8 @@ public class Item {
         this.stockQuantity = resStock;
     }
     public void updateCategoryInformation(Category category){
-        this.categoryId = category.getId();
-        this.categoryName = category.getName();
+        this.categoryId = category!=null?category.getId():null;
+        this.categoryName = category!=null?category.getName():null;
     }
 
 }
