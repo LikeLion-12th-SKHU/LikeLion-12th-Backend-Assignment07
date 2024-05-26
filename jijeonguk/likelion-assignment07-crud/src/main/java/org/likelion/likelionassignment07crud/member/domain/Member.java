@@ -44,5 +44,4 @@ public class Member {
         this.age = memberUpdateReqDto.age();
         this.part = memberUpdateReqDto.part();
     }
-
 }

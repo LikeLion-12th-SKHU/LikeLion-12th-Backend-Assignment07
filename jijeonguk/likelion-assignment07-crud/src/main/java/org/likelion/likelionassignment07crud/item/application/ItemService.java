@@ -1,12 +1,12 @@
 package org.likelion.likelionassignment07crud.item.application;
 
 import lombok.RequiredArgsConstructor;
-import org.likelion.likelionrecrud.item.api.dto.request.ItemSaveReqDto;
-import org.likelion.likelionrecrud.item.api.dto.request.ItemUpdateReqDto;
-import org.likelion.likelionrecrud.item.api.dto.response.ItemInfoResDto;
-import org.likelion.likelionrecrud.item.api.dto.response.ItemListResDto;
-import org.likelion.likelionrecrud.item.domain.Item;
-import org.likelion.likelionrecrud.item.domain.repository.ItemRepository;
+import org.likelion.likelionassignment07crud.item.api.dto.request.ItemSaveReqDto;
+import org.likelion.likelionassignment07crud.item.api.dto.request.ItemUpdateReqDto;
+import org.likelion.likelionassignment07crud.item.api.dto.response.ItemInfoResDto;
+import org.likelion.likelionassignment07crud.item.api.dto.response.ItemListResDto;
+import org.likelion.likelionassignment07crud.item.domain.Item;
+import org.likelion.likelionassignment07crud.item.domain.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

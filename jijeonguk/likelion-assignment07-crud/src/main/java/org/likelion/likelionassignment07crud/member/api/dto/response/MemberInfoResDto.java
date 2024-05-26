@@ -1,8 +1,8 @@
 package org.likelion.likelionassignment07crud.member.api.dto.response;
 
 import lombok.Builder;
-import org.likelion.likelionrecrud.member.domain.Member;
-import org.likelion.likelionrecrud.member.domain.Part;
+import org.likelion.likelionassignment07crud.member.domain.Member;
+import org.likelion.likelionassignment07crud.member.domain.Part;
 
 @Builder
 public record MemberInfoResDto (

@@ -1,7 +1,7 @@
 package org.likelion.likelionassignment07crud.item.api.dto.response;
 
 import lombok.Builder;
-import org.likelion.likelionrecrud.item.domain.Item;
+import org.likelion.likelionassignment07crud.item.domain.Item;
 
 @Builder
 public record ItemInfoResDto(
