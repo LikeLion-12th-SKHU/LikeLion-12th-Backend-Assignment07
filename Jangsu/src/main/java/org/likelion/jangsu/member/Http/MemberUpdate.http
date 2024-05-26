@@ -1,0 +1,8 @@
+PATCH http://localhost:8080/members/3
+Content-Type: application/json
+
+{
+  "name": "이장수",
+  "age": 20,
+  "part": "BACKEND"
+}
