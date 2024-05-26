@@ -50,7 +50,7 @@ public class OrderService {
             int count = orderSaveReqDto.counts().get(i);
 
             // 상품 조회
-            Item item = itemRepository.findById(itemId) // itemRepository를 통해 상품을 조회
+            Item item = itemRepository.findById(itemId)
                     .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + itemId));
 
             // 주문 상품 생성 및 저장
@@ -60,9 +60,9 @@ public class OrderService {
                     .count(count)
                     .orderPrice(item.getPrice())
                     .build());
-            item.removeStock(count); // 주문 수량만큼 상품의 재고를 줄임
+            item.removeStock(count);
         }
-        // 이 과정에서 모든 주문 상품에 대해 별도의 주문(Order) 엔티티가 생성
+
     }
 
     // OrderInfoResDto와 OrderItemResDto 클래스를 활용하여 주문 정보 표현
@@ -77,16 +77,14 @@ public class OrderService {
         List<OrderInfoResDto> orderInfoResDtoList = new ArrayList<>();
         // allByOrderMember 리스트에 담긴 모든 OrderItem 객체 순회
         for (OrderItem orderItem : allByOrderMember) {
-            OrderInfoResDto o = new OrderInfoResDto(    //순회중인 OrderItem 객체로부터 OrderInfoResDto 객체 생성
+            OrderInfoResDto o = new OrderInfoResDto(
                     member.getId(),
                     orderItem.getOrder().getId(),
-                    Collections.singletonList(new OrderItemResDto(    // 회원 ID, 주문 ID, 그리고 주문 항목(OrderItemResDto)을 생성자에 전달
+                    Collections.singletonList(new OrderItemResDto(
                             orderItem.getItem().getId(),
                             orderItem.getItem().getPrice(),
-                            orderItem.getCount()))   // OrderItemResDto는 주문된 상품의 ID, 가격, 수량을 포함
+                            orderItem.getCount()))
             );
-
-            //생성된 OrderInfoResDto 객체를 orderInfoResDtoList에 추가
             orderInfoResDtoList.add(o);
         }
 

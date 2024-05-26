@@ -1,7 +1,7 @@
 package org.likelion.jangsu.item.application;
 
 import lombok.RequiredArgsConstructor;
-import org.likelion.jangsu.category.domain.repository.CatRepository;
+import org.likelion.jangsu.category.api.dto.response.CatInfoResDto;
 import org.likelion.jangsu.item.api.dto.request.ItemSaveReqDto;
 import org.likelion.jangsu.item.api.dto.request.ItemUpdateReqDto;
 import org.likelion.jangsu.item.api.dto.response.ItemInfoResDto;
@@ -10,9 +10,13 @@ import org.likelion.jangsu.item.domain.CategoryItem;
 import org.likelion.jangsu.item.domain.Item;
 import org.likelion.jangsu.item.domain.repository.CatItemRepository;
 import org.likelion.jangsu.item.domain.repository.ItemRepository;
+import org.likelion.jangsu.order.api.dto.response.OrderInfoResDto;
+import org.likelion.jangsu.order.api.dto.response.OrderItemResDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,8 +25,8 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final CatRepository catRepository;
-    private final CatItemRepository catitemRepository;
+    private final CatItemRepository catItemRepository;
+
 
     // 아이템 조회
     @Transactional
@@ -35,6 +39,26 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    public List<CatInfoResDto> findAllByCategoryItem(Long itemId) {
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + itemId));
+
+        List<CategoryItem> allByCategoryItem = catItemRepository.findAllByCategoryItem(item);
+
+        List<CatInfoResDto> catInfoResDtoList = new ArrayList<>();
+        for (CategoryItem categoryItem : allByCategoryItem) {
+            CatInfoResDto c = new CatInfoResDto(
+                    item.getName(),
+                    categoryItem.getCategoryId(),
+                    Collections.singletonList(new CatInfoResDto(
+                            categoryItem.getCategoryId().getName()))
+            );
+            //생성된 OrderInfoResDto 객체를 orderInfoResDtoList에 추가
+            catInfoResDtoList.add(c);
+        }
+
+        return catInfoResDtoList;
+    }
     public ItemInfoResDto itemFindOne(Long itemId) {
         Item item = itemRepository.findById(itemId).orElseThrow
                 (() -> new IllegalArgumentException("해당 상품이 없습니다."));

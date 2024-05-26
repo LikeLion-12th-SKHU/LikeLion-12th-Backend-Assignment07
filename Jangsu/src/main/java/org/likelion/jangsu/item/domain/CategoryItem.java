@@ -15,7 +15,8 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CategoryItem {
-    //주문한 상품 정보와 주문 금액(orderPrice), 주문 수량(count) 정보를 가지고 있다.
+    // 상품분류와 분류는 다대일 관계(이 클래스는 부모)
+    // 상품분류와 상품은 다대일 관계
 
     @Id
     @ManyToOne(fetch = LAZY)

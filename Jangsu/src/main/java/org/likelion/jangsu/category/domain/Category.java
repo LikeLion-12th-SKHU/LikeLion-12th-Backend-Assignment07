@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
+    // 분류와 상품분류는 일대다 관계(이 클래스는 자식)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

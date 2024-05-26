@@ -7,8 +7,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.query.Order;
 import org.likelion.jangsu.member.api.dto.request.MemberUpdateReqDto;
+import org.likelion.jangsu.order.domain.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class Member {
 
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orderList = new ArrayList<>();
+    private List<Order> ordersList = new ArrayList<>();
 
     @Builder Member(String name,int age, Part part) {
         this.name = name;
