@@ -70,7 +70,7 @@ public class ItemService {
 
         item.update(itemUpdateReqDto);
 
-        List<CategoryItem> categoryItems = categoryItemRepository.findByItem(item);
+        List<CategoryItem> categoryItems = categoryItemRepository.findAllByItem(item);
         categoryItemRepository.deleteAll(categoryItems);
 
         Category category = categoryRepository.findById(itemUpdateReqDto.categoryId())
@@ -89,7 +89,7 @@ public class ItemService {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다."));
 
-        List<CategoryItem> categoryItems = categoryItemRepository.findByItem(item);
+        List<CategoryItem> categoryItems = categoryItemRepository.findAllByItem(item);
         categoryItemRepository.deleteAll(categoryItems);
 
         itemRepository.delete(item);

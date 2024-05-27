@@ -6,7 +6,11 @@ import org.likelion.likelionassignmentcrud.category.api.dto.request.CategoryUpda
 import org.likelion.likelionassignmentcrud.category.api.dto.response.CategoryInfoResDto;
 import org.likelion.likelionassignmentcrud.category.api.dto.response.CategoryListResDto;
 import org.likelion.likelionassignmentcrud.category.domain.Category;
+import org.likelion.likelionassignmentcrud.category.domain.CategoryItem;
+import org.likelion.likelionassignmentcrud.category.domain.repository.CategoryItemRepository;
 import org.likelion.likelionassignmentcrud.category.domain.repository.CategoryRepository;
+import org.likelion.likelionassignmentcrud.item.domain.Item;
+import org.likelion.likelionassignmentcrud.item.domain.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +22,8 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryItemRepository categoryItemRepository;
+    private final ItemRepository itemRepository;
 
     @Transactional
     public void categorySave(CategorySaveReqDto categorySaveReqDto) {
@@ -68,6 +74,12 @@ public class CategoryService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 없습니다."));
 
+        List<CategoryItem> categoryItems = categoryItemRepository.findAllByCategory(category);
+        for (CategoryItem categoryItem : categoryItems) {
+            Item item = categoryItem.getItem();
+            categoryItemRepository.deleteAll(categoryItemRepository.findAllByItem(item));
+            itemRepository.delete(item);
+        }
         categoryRepository.delete(category);
     }
 }
