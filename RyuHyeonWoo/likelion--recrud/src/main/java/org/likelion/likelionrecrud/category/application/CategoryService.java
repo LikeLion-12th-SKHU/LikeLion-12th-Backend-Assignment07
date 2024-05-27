@@ -9,6 +9,7 @@ import org.likelion.likelionrecrud.category.domain.Category;
 import org.likelion.likelionrecrud.category.domain.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class CategoryService {
         return CategoryListResDto.from(categoryInfoReqDtoList);
     }
 
-    public CategoryInfoReqDto categoryFindOne(Long categoryId) {
+    public CategoryInfoReqDto categoryFindOne( Long categoryId) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(()-> new IllegalArgumentException("카테고리 없음"));
 
