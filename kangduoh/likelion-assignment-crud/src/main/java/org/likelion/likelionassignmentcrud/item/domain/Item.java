@@ -24,7 +24,6 @@ public class Item {
     private String name;
     private int price;
     private int stockQuantity;
-
     private String categoryName;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -55,5 +54,9 @@ public class Item {
             throw new IllegalArgumentException("재고가 부족합니다.");
         }
         this.stockQuantity = resStock;
+    }
+
+    public void updateCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

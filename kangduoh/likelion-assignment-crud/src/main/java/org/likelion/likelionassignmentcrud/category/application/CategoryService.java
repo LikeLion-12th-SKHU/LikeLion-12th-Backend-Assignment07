@@ -67,6 +67,13 @@ public class CategoryService {
         }
 
         category.updateCategory(categoryUpdateReqDto.name(), parent);
+
+        List<CategoryItem> categoryItems = categoryItemRepository.findAllByCategory(category);
+        for (CategoryItem categoryItem : categoryItems) {
+            Item item = categoryItem.getItem();
+            item.updateCategoryName(category.getName());
+            itemRepository.save(item);
+        }
     }
 
     @Transactional
