@@ -31,6 +31,10 @@ public class Category {
     @JoinColumn(name = "parent_id") // 자기 참조 fk
     private Category parent;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Category> children = new ArrayList<>();
+    
     private String name;
 
     @Builder
